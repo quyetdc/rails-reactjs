@@ -41,8 +41,8 @@
       React.DOM.hr null
       React.DOM.table
         className: 'table table-bordered'
-        React.DOM.thead null
-          React.DOM.tr null
+        React.DOM.thead null,
+          React.DOM.tr null,
             React.DOM.th null, 'Date'
             React.DOM.th null, 'Title'
             React.DOM.th null, 'Amount'

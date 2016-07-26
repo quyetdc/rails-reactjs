@@ -1,10 +1,14 @@
 @Record = React.createClass
   getInitialState: ->
     edit: false
+
   handleToggle: (e) ->
+    console.log('Click edit')
     e.preventDefault()
     @setState edit: !@state.edit
+
   handleDelete: (e) ->
+    console.log('Click Delete')
     e.preventDefault()
     $.ajax
       method: 'DELETE'
@@ -12,6 +16,7 @@
       dataType: 'JSON'
       success: () =>
         @props.handleDeleteRecord @props.record
+    @setState edit: !@state.edit
 
   handleEdit: (e) ->
     e.preventDefault()
@@ -19,7 +24,6 @@
       title: React.findDOMNode(@refs.title).value
       date: React.findDOMNode(@refs.date).value
       amount: React.findDOMNode(@refs.amount).value
-# jQuery doesn't have a $.put shortcut method either
     $.ajax
       method: 'PUT'
       url: "/records/#{ @props.record.id }"
@@ -29,6 +33,7 @@
       success: (data) =>
         @setState edit: false
         @props.handleEditRecord @props.record, data
+
   recordRow: ->
     React.DOM.tr null,
       React.DOM.td null, @props.record.date
@@ -37,7 +42,7 @@
       React.DOM.td null,
         React.DOM.a
           className: 'btn btn-default'
-          onclick: @handleToggle
+          onClick: @handleToggle
           'Edit'
         React.DOM.a
           className: 'btn btn-danger'
@@ -68,11 +73,12 @@
         React.DOM.a
           className: 'btn btn-default'
           onClick: @handleEdit
-          ref: 'Update'
+          'Update'
         React.DOM.a
           className: 'btn btn-danger'
           onClick: @handleToggle
-          ref: 'Cancel'
+          'Cancel'
+
   render: ->
     if @state.edit
       @recordForm()
